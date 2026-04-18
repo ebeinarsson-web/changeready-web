@@ -1,15 +1,39 @@
 import type { ResultBand } from "@/data/assessment";
-import type {
-  AssessmentDimension,
-  AssessmentScoreSnapshot,
-  DimensionKey,
-} from "@/types/assessment";
+import type { AssessmentDimension, AssessmentScoreSnapshot } from "@/types/assessment";
 
 type BuildResultEmailPayloadArgs = {
   result: AssessmentScoreSnapshot;
   band: ResultBand;
   dimensions: AssessmentDimension[];
 };
+
+function describeDimensionStrength(sum: number): string {
+  if (sum >= 18) {
+    return "Mjög sterk";
+  }
+
+  if (sum >= 16) {
+    return "Sterk";
+  }
+
+  if (sum >= 13) {
+    return "Góð";
+  }
+
+  if (sum >= 11) {
+    return "Í meðallagi";
+  }
+
+  if (sum >= 9) {
+    return "Hófleg";
+  }
+
+  return "Varkár";
+}
+
+function formatTotalScoreLine(total: number): string {
+  return `${total} af 50`;
+}
 
 function escapeHtml(value: string): string {
   return value
@@ -26,11 +50,16 @@ export function buildResultEmailPayload({
   dimensions,
 }: BuildResultEmailPayloadArgs) {
   const subject = "ChangeReady | Niðurstöður sjálfsmats";
+  const totalOnDisplayScale = result.totalOnDisplayScale;
 
-  const dimensionRows = dimensions
+  if (typeof totalOnDisplayScale !== "number") {
+    throw new Error("Cannot build ChangeReady result email without a completed score.");
+  }
+
+  const dimensionLines = dimensions
     .map((dimension) => {
       const score = result.dimensions[dimension.key];
-      return `- ${dimension.label}: ${score.sum} / ${score.maxPossible}`;
+      return `- ${dimension.label} — ${describeDimensionStrength(score.sum)}`;
     })
     .join("\n");
 
@@ -38,8 +67,8 @@ export function buildResultEmailPayload({
     "ChangeReady",
     "Sjálfsmat á breytingastíl",
     "",
-    `Heildarskor (10-50): ${result.totalOnDisplayScale}`,
-    `Niðurstöðuflokkur: ${band.title}`,
+    band.title,
+    formatTotalScoreLine(totalOnDisplayScale),
     "",
     "Stutt samantekt:",
     band.summary,
@@ -53,23 +82,17 @@ export function buildResultEmailPayload({
     "Það sem þarf að passa:",
     ...band.watchouts.map((item) => `- ${item}`),
     "",
-    "Víðdaskor:",
-    dimensionRows,
+    "Víddir í samhengi við matið:",
+    dimensionLines,
     "",
     "Hannað og þróað af einarsson.io",
   ].join("\n");
 
-  const dimensionTableRows = dimensions
+  const dimensionListItems = dimensions
     .map((dimension) => {
-      const score = result.dimensions[dimension.key as DimensionKey];
-      return `<tr>
-        <td style="padding: 10px 12px; border-bottom: 1px solid #e2e6ee; color: #1a1f2b;">${escapeHtml(
-          dimension.label
-        )}</td>
-        <td style="padding: 10px 12px; border-bottom: 1px solid #e2e6ee; color: #1a1f2b; text-align: right; font-weight: 600;">
-          ${score.sum} / ${score.maxPossible}
-        </td>
-      </tr>`;
+      const score = result.dimensions[dimension.key];
+      const label = `${dimension.label} — ${describeDimensionStrength(score.sum)}`;
+      return `<li style="margin: 0 0 10px; color: #4d5a70; line-height: 1.65;">${escapeHtml(label)}</li>`;
     })
     .join("");
 
@@ -85,15 +108,16 @@ export function buildResultEmailPayload({
   <div style="margin:0;padding:28px 14px;background:#f3efe8;font-family:Arial,Helvetica,sans-serif;color:#131a25;">
     <div style="max-width:760px;margin:0 auto;background:#fffdf9;border:1px solid #e5ddcf;border-radius:26px;padding:28px;">
       <p style="margin:0 0 10px;font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:#8f6241;">ChangeReady</p>
-      <h1 style="margin:0;font-size:30px;line-height:1.2;color:#131a25;">Sjálfsmat á breytingastíl</h1>
-      <p style="margin:16px 0 0;font-size:15px;line-height:1.7;color:#4d5a70;">Hér er samantekt á niðurstöðum þínum úr ChangeReady.</p>
+      <p style="margin:0 0 8px;font-size:13px;color:#6b7285;">Sjálfsmat á breytingastíl</p>
+      <p style="margin:0 0 18px;font-size:15px;line-height:1.7;color:#4d5a70;">Hér er fagleg samantekt á niðurstöðum þínum úr ChangeReady — byggð á sjálfsmati, ekki einkunn.</p>
 
-      <div style="margin-top:22px;padding:18px;border:1px solid #e2d8c8;border-radius:18px;background:#f8f4ed;">
-        <p style="margin:0;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#8f6241;">Niðurstaða</p>
-        <p style="margin:10px 0 0;font-size:34px;font-weight:700;color:#131a25;">${result.totalOnDisplayScale}</p>
-        <p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#4d5a70;"><strong style="color:#131a25;">${escapeHtml(
-          band.title
-        )}</strong><br/>${escapeHtml(band.summary)}</p>
+      <div style="margin-top:6px;padding:18px;border:1px solid #e2d8c8;border-radius:18px;background:#f8f4ed;">
+        <p style="margin:0;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#8f6241;">Niðurstöðuflokkur</p>
+        <h1 style="margin:10px 0 0;font-size:30px;line-height:1.2;color:#131a25;">${escapeHtml(band.title)}</h1>
+        <p style="margin:10px 0 0;font-size:14px;line-height:1.6;color:#6b7285;">${escapeHtml(
+          formatTotalScoreLine(totalOnDisplayScale)
+        )}</p>
+        <p style="margin:14px 0 0;font-size:15px;line-height:1.65;color:#4d5a70;">${escapeHtml(band.summary)}</p>
       </div>
 
       <div style="margin-top:24px;">
@@ -112,10 +136,9 @@ export function buildResultEmailPayload({
       </div>
 
       <div style="margin-top:22px;">
-        <h2 style="margin:0 0 10px;font-size:18px;color:#131a25;">Víðdaskor</h2>
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border:1px solid #e2e6ee;border-radius:14px;overflow:hidden;background:#ffffff;">
-          <tbody>${dimensionTableRows}</tbody>
-        </table>
+        <h2 style="margin:0 0 10px;font-size:18px;color:#131a25;">Víddir í samhengi við matið</h2>
+        <p style="margin:0 0 10px;font-size:14px;line-height:1.65;color:#6b7285;">Hér er túlkun á styrkleika hverrar víddar út frá matinu — án hrárra tölusamanburða.</p>
+        <ul style="margin:0;padding-left:18px;">${dimensionListItems}</ul>
       </div>
 
       <p style="margin:24px 0 0;font-size:13px;color:#6b7285;">Hannað og þróað af einarsson.io</p>
