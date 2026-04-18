@@ -1,4 +1,5 @@
 import type { ResultBand } from "@/data/assessment";
+import { describeDimensionStrength, formatTotalScoreLine } from "@/lib/assessment/dimension-strength";
 import type { AssessmentDimension, AssessmentScoreSnapshot } from "@/types/assessment";
 
 type BuildResultEmailPayloadArgs = {
@@ -6,34 +7,6 @@ type BuildResultEmailPayloadArgs = {
   band: ResultBand;
   dimensions: AssessmentDimension[];
 };
-
-function describeDimensionStrength(sum: number): string {
-  if (sum >= 18) {
-    return "Mjög sterk";
-  }
-
-  if (sum >= 16) {
-    return "Sterk";
-  }
-
-  if (sum >= 13) {
-    return "Góð";
-  }
-
-  if (sum >= 11) {
-    return "Í meðallagi";
-  }
-
-  if (sum >= 9) {
-    return "Hófleg";
-  }
-
-  return "Varkár";
-}
-
-function formatTotalScoreLine(total: number): string {
-  return `${total} af 50`;
-}
 
 function escapeHtml(value: string): string {
   return value
@@ -109,10 +82,10 @@ export function buildResultEmailPayload({
     <div style="max-width:760px;margin:0 auto;background:#fffdf9;border:1px solid #e5ddcf;border-radius:26px;padding:28px;">
       <p style="margin:0 0 10px;font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:#8f6241;">ChangeReady</p>
       <p style="margin:0 0 8px;font-size:13px;color:#6b7285;">Sjálfsmat á breytingastíl</p>
-      <p style="margin:0 0 18px;font-size:15px;line-height:1.7;color:#4d5a70;">Hér er fagleg samantekt á niðurstöðum þínum úr ChangeReady — byggð á sjálfsmati, ekki einkunn.</p>
+      <p style="margin:0 0 18px;font-size:15px;line-height:1.7;color:#4d5a70;">Hér er samantekt á niðurstöðum þínum úr ChangeReady — hugsuð sem sjálfsmat og umræðugrunnur.</p>
 
       <div style="margin-top:6px;padding:18px;border:1px solid #e2d8c8;border-radius:18px;background:#f8f4ed;">
-        <p style="margin:0;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#8f6241;">Niðurstöðuflokkur</p>
+        <p style="margin:0;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#8f6241;">Breytingarstíll</p>
         <h1 style="margin:10px 0 0;font-size:30px;line-height:1.2;color:#131a25;">${escapeHtml(band.title)}</h1>
         <p style="margin:10px 0 0;font-size:14px;line-height:1.6;color:#6b7285;">${escapeHtml(
           formatTotalScoreLine(totalOnDisplayScale)

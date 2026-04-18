@@ -6,6 +6,7 @@ import { ButtonLink } from "@/components/ui/button-link";
 import { assessmentDimensionsIs, assessmentQuestionsIs, pickResultBand } from "@/data/assessment";
 import { siteContent } from "@/content/site";
 import { theme } from "@/lib/theme";
+import { describeDimensionStrength, formatTotalScoreLine } from "@/lib/assessment/dimension-strength";
 import { scoreAssessment } from "@/lib/assessment/score-assessment";
 import {
   createEmptyAssessmentSession,
@@ -15,11 +16,13 @@ import type { AnswerMap, AssessmentScoreSnapshot, DimensionKey } from "@/types/a
 
 function DimensionMeter({
   label,
+  strengthLabel,
   sum,
   minPossible,
   maxPossible,
 }: {
   label: string;
+  strengthLabel: string;
   sum: number;
   minPossible: number;
   maxPossible: number;
@@ -29,10 +32,10 @@ function DimensionMeter({
 
   return (
     <div className="space-y-2 rounded-2xl border border-border bg-surface-muted/45 px-4 py-3">
-      <div className="flex items-center justify-between gap-3">
-        <p className="text-sm font-semibold text-foreground">{label}</p>
-        <p className="text-xs font-medium text-muted">
-          {sum} / {maxPossible}
+      <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
+        <p className="text-sm font-semibold leading-snug text-foreground">
+          {label} <span className="text-muted">—</span>{" "}
+          <span className="font-semibold text-foreground/90">{strengthLabel}</span>
         </p>
       </div>
       <div className="h-2 rounded-full bg-background/40">
@@ -103,28 +106,19 @@ export function ResultsView() {
       <div className={`${theme.panel} space-y-6 px-4 py-6 sm:px-8 sm:py-8`}>
         <div className="space-y-2">
           <p className={theme.eyebrow}>{siteContent.results.eyebrow}</p>
-          <h1 className={theme.sectionTitle}>{siteContent.results.title}</h1>
-          <p className={theme.bodySm}>{siteContent.results.dimensionHint}</p>
+          <h1 className={theme.sectionTitle}>{siteContent.results.heading}</h1>
+          <p className={theme.bodySm}>{siteContent.results.intro}</p>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-[1.1fr_0.9fr]">
-          <div className="rounded-3xl border border-border bg-surface-muted/55 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
-              {siteContent.results.totalScoreLabel}
-            </p>
-            <p className="mt-3 text-5xl font-semibold text-foreground">{snapshot.totalOnDisplayScale}</p>
-            <p className="mt-2 text-sm font-medium text-muted">
-              {siteContent.results.rawSumLabel}: {snapshot.rawSum}
-            </p>
-          </div>
-
-          <div className="rounded-3xl border border-accent/45 bg-accent/12 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-              {siteContent.results.bandLabel}
-            </p>
-            <p className="mt-3 text-xl font-semibold text-foreground">{band?.title ?? "—"}</p>
-            <p className="mt-2 text-sm leading-relaxed text-muted">{band?.summary}</p>
-          </div>
+        <div className="rounded-3xl border border-border bg-surface-muted/45 p-5 sm:p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">
+            {siteContent.results.changeStyleKicker}
+          </p>
+          <p className="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+            {band?.title ?? "—"}
+          </p>
+          <p className="mt-2 text-sm text-muted">{formatTotalScoreLine(snapshot.totalOnDisplayScale)}</p>
+          <p className="mt-4 text-sm leading-relaxed text-muted sm:text-base">{band?.summary}</p>
         </div>
 
         {band ? (
@@ -133,9 +127,9 @@ export function ResultsView() {
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
                 Það sem einkennir þig
               </p>
-              <ul className="mt-3 space-y-2 text-sm leading-relaxed text-muted">
+              <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted">
                 {band.characteristics.map((item) => (
-                  <li key={item}>- {item}</li>
+                  <li key={item}>{item}</li>
                 ))}
               </ul>
             </div>
@@ -143,9 +137,9 @@ export function ResultsView() {
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
                 Það sem er styrkur
               </p>
-              <ul className="mt-3 space-y-2 text-sm leading-relaxed text-muted">
+              <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted">
                 {band.strengths.map((item) => (
-                  <li key={item}>- {item}</li>
+                  <li key={item}>{item}</li>
                 ))}
               </ul>
             </div>
@@ -153,9 +147,9 @@ export function ResultsView() {
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
                 Það sem þarf að passa
               </p>
-              <ul className="mt-3 space-y-2 text-sm leading-relaxed text-muted">
+              <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted">
                 {band.watchouts.map((item) => (
-                  <li key={item}>- {item}</li>
+                  <li key={item}>{item}</li>
                 ))}
               </ul>
             </div>
@@ -163,7 +157,10 @@ export function ResultsView() {
         ) : null}
 
         <div className="space-y-3">
-          <p className="text-sm font-semibold text-foreground">{siteContent.results.dimensionLabel}</p>
+          <div className="space-y-1">
+            <p className="text-sm font-semibold text-foreground">{siteContent.results.dimensionsHeading}</p>
+            <p className={theme.bodySm}>{siteContent.results.dimensionsIntro}</p>
+          </div>
           <div className="grid gap-3">
             {(Object.keys(snapshot.dimensions) as DimensionKey[]).map((key) => {
               const dimensionScore = snapshot.dimensions[key];
@@ -171,6 +168,7 @@ export function ResultsView() {
                 <DimensionMeter
                   key={key}
                   label={dimensionLabels[key]}
+                  strengthLabel={describeDimensionStrength(dimensionScore.sum)}
                   sum={dimensionScore.sum}
                   minPossible={dimensionScore.minPossible}
                   maxPossible={dimensionScore.maxPossible}

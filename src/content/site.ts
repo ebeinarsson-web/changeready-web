@@ -56,18 +56,18 @@ export const siteContent = {
   },
   results: {
     eyebrow: "Niðurstaða",
-    title: "Yfirlit yfir breytingastíl",
+    heading: "Niðurstaða",
+    intro:
+      "Hér er samantekt á niðurstöðum þínum úr ChangeReady — hugsuð sem sjálfsmat og umræðugrunnur.",
     incompleteTitle: "Mati er ekki lokið",
     incompleteBody:
       "Til að sjá niðurstöðu á kvarðanum 10–50 þarf að svara öllum 24 spurningum. Þú getur haldið áfram þar sem þú varst.",
     resumeCta: "Halda áfram með mati",
     restartCta: "Byrja aftur",
-    totalScoreLabel: "Heildarskor (10–50)",
-    rawSumLabel: "Hrásumma (eftir andhverfum)",
-    bandLabel: "Niðurstöðuflokkur",
-    dimensionLabel: "Víddir",
-    dimensionHint:
-      "Kúlurit sýnir hlutfall milli lágmarks og hámarks fyrir hverja vídd. Víðdaskor og heildarskor taka tillit til andhverfrar skorunar.",
+    changeStyleKicker: "Breytingarstíll",
+    dimensionsHeading: "Víddir í samhengi við matið",
+    dimensionsIntro:
+      "Hér sérðu hvernig helstu víddir birtast hjá þér — sem túlkun, ekki einkunn.",
     emailSection: {
       eyebrow: "Niðurstöður í tölvupósti",
       title: "Fá niðurstöður sendar",
