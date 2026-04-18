@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { ResultEmailForm } from "@/components/results/result-email-form";
 import { ButtonLink } from "@/components/ui/button-link";
 import { assessmentDimensionsIs, assessmentQuestionsIs, pickResultBand } from "@/data/assessment";
 import { siteContent } from "@/content/site";
@@ -10,7 +11,7 @@ import {
   createEmptyAssessmentSession,
   loadAssessmentSession,
 } from "@/lib/assessment/storage";
-import type { AssessmentScoreSnapshot, DimensionKey } from "@/types/assessment";
+import type { AnswerMap, AssessmentScoreSnapshot, DimensionKey } from "@/types/assessment";
 
 function DimensionMeter({
   label,
@@ -45,6 +46,7 @@ function DimensionMeter({
 }
 
 export function ResultsView() {
+  const [answers, setAnswers] = useState<AnswerMap>({});
   const [snapshot, setSnapshot] = useState<AssessmentScoreSnapshot>(() =>
     scoreAssessment(assessmentQuestionsIs, createEmptyAssessmentSession().answers)
   );
@@ -52,6 +54,7 @@ export function ResultsView() {
   useEffect(() => {
     const timeoutId = window.setTimeout(() => {
       const session = loadAssessmentSession() ?? createEmptyAssessmentSession();
+      setAnswers(session.answers);
       setSnapshot(scoreAssessment(assessmentQuestionsIs, session.answers));
     }, 0);
 
@@ -188,6 +191,11 @@ export function ResultsView() {
           Forsíða
         </ButtonLink>
       </div>
+
+      <ResultEmailForm
+        answers={answers}
+        content={siteContent.results.emailSection}
+      />
     </div>
   );
 }

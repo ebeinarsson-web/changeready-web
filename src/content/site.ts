@@ -68,6 +68,20 @@ export const siteContent = {
     dimensionLabel: "Víddir",
     dimensionHint:
       "Kúlurit sýnir hlutfall milli lágmarks og hámarks fyrir hverja vídd. Víðdaskor og heildarskor taka tillit til andhverfrar skorunar.",
+    emailSection: {
+      eyebrow: "Niðurstöður í tölvupósti",
+      title: "Fá niðurstöður sendar",
+      intro:
+        "Sláðu inn netfangið þitt til að fá samantekt á niðurstöðum ChangeReady sendar beint í pósthólfið.",
+      placeholder: "nafn@fyrirtaeki.is",
+      helper: "Við notum netfangið eingöngu til að senda þessa niðurstöðu.",
+      submitLabel: "Senda niðurstöður",
+      sendingLabel: "Sendi niðurstöður...",
+      successMessage: "Niðurstöður hafa verið sendar á netfangið.",
+      errorMessage:
+        "Ekki tókst að senda niðurstöður í þetta sinn. Vinsamlegast reyndu aftur.",
+      invalidEmailMessage: "Vinsamlegast sláðu inn gilt netfang.",
+    },
     footnote:
       "Niðurstaðan er hugsuð sem sjálfsmat og umræðugrunnur, ekki klínísk greining.",
   },
