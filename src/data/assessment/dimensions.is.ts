@@ -1,43 +1,40 @@
 import type { AssessmentDimension } from "@/types/assessment";
 
-/**
- * Six dimension placeholders — swap labels/descriptions when final model lands.
- */
 export const assessmentDimensionsIs: AssessmentDimension[] = [
   {
     key: "d1",
-    label: "Vídd 1",
+    label: "Opnun fyrir breytingum",
     description:
-      "Staðhaldandi lýsing á fyrstu vídd breytingastíls. Hér kemur nákvæmari texti við lokaniðurstöður.",
+      "Hversu jákvætt þú tekur almennt í breytingar og sérð tækifæri frekar en ógn.",
   },
   {
     key: "d2",
-    label: "Vídd 2",
+    label: "Aðlögunarhæfni",
     description:
-      "Staðhaldandi lýsing á annarri vídd. Þetta er einfaldur kafli sem auðvelt er að skipta út.",
+      "Hversu hratt og vel þú nærð tökum á nýju verklagi og aðstæðum.",
   },
   {
     key: "d3",
-    label: "Vídd 3",
+    label: "Frumkvæði í breytingum",
     description:
-      "Staðhaldandi lýsing á þriðju vídd. Útfærsla á skorun og túlkun kemur í næsta skrefi.",
+      "Hversu líkleg(ur) þú ert til að ýta breytingum af stað og móta þær.",
   },
   {
     key: "d4",
-    label: "Vídd 4",
+    label: "Þol gagnvart óvissu",
     description:
-      "Staðhaldandi lýsing á fjórðu vídd. Gagnagrunnurinn styður aðskilda skorun á hverri vídd.",
+      "Hversu vel þú vinnur áfram þegar ekki er allt fullmótað eða skýrt.",
   },
   {
     key: "d5",
-    label: "Vídd 5",
+    label: "Samvinna í breytingum",
     description:
-      "Staðhaldandi lýsing á fimmtu vídd. Viðhalda skal samræmi við 24 atriði og 6 víddir.",
+      "Hversu vel þú styður aðra og byggir sameiginlegan skilning í breytingaferlum.",
   },
   {
     key: "d6",
-    label: "Vídd 6",
+    label: "Framkvæmd í breytingum",
     description:
-      "Staðhaldandi lýsing á sjöttu vídd. Niðurstöðutextar tengjast síðan flokkum og mörkum.",
+      "Hversu vel þú heldur fókus og fylgir breytingum eftir í raunverulegan árangur.",
   },
 ];

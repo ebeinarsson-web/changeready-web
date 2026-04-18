@@ -53,13 +53,17 @@ function mapRawSumToDisplayScale(rawSum: number, questionCount: number): number 
 
   const minRaw = questionCount * assessmentSpec.itemScale.min;
   const maxRaw = questionCount * assessmentSpec.itemScale.max;
+  const rawBandWidth =
+    questionCount * (assessmentSpec.itemScale.max - assessmentSpec.itemScale.min);
   const clamped = Math.min(Math.max(rawSum, minRaw), maxRaw);
-  const progress = (clamped - minRaw) / (maxRaw - minRaw);
+  const displayBandWidth =
+    assessmentSpec.totalScoreRange.max - assessmentSpec.totalScoreRange.min;
 
+  // Formula: ROUND(10 + (raw - 24) * 40 / 96)
+  // Generalized from spec so the same rule stays consistent with config.
   const display =
     assessmentSpec.totalScoreRange.min +
-    progress *
-      (assessmentSpec.totalScoreRange.max - assessmentSpec.totalScoreRange.min);
+    ((clamped - minRaw) * displayBandWidth) / rawBandWidth;
 
   return Math.round(display);
 }

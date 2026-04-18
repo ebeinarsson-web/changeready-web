@@ -124,6 +124,41 @@ export function ResultsView() {
           </div>
         </div>
 
+        {band ? (
+          <div className="grid gap-3 sm:grid-cols-3">
+            <div className="rounded-2xl border border-border/70 bg-surface-muted/30 p-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+                Það sem einkennir þig
+              </p>
+              <ul className="mt-3 space-y-2 text-sm leading-relaxed text-muted">
+                {band.characteristics.map((item) => (
+                  <li key={item}>- {item}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-2xl border border-border/70 bg-surface-muted/30 p-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+                Það sem er styrkur
+              </p>
+              <ul className="mt-3 space-y-2 text-sm leading-relaxed text-muted">
+                {band.strengths.map((item) => (
+                  <li key={item}>- {item}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-2xl border border-border/70 bg-surface-muted/30 p-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+                Það sem þarf að passa
+              </p>
+              <ul className="mt-3 space-y-2 text-sm leading-relaxed text-muted">
+                {band.watchouts.map((item) => (
+                  <li key={item}>- {item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ) : null}
+
         <div className="space-y-3">
           <p className="text-sm font-semibold text-foreground">{siteContent.results.dimensionLabel}</p>
           <div className="grid gap-3">

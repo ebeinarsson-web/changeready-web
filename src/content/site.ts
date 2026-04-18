@@ -23,13 +23,13 @@ export const siteContent = {
     ],
     primaryCta: "Hefja mat",
     secondaryNote:
-      "Þetta er upphafsupplifun með staðhaldandi texta. Lokaformúlan og túlkun koma inn í næstu lotu.",
+      "Matið tekur stuttan tíma, birtir eina spurningu í einu og skilar skýrri niðurstöðu á kvarðanum 10–50.",
   },
   assessment: {
     eyebrow: "ChangeReady mat",
     title: "Svaraðu eins heiðarlega og þú getur",
     intro:
-      "Veldu svar við hverju påsti. Þú getur farið til baka, endurstillt matið eða haldið áfram þar sem þú varst — allt er vistað í þessum vafra.",
+      "Veldu svar við hverri spurningu. Þú getur farið til baka, endurstillt matið eða haldið áfram þar sem þú varst — allt er vistað í þessum vafra.",
     progressLabel: "Framvinda",
     answeredLabel: "svarað",
     likertLabels: {
@@ -46,11 +46,12 @@ export const siteContent = {
     finishLabel: "Skoða niðurstöðu",
     resetLabel: "Endurstilla mat",
     instructionsEyebrow: "Leiðbeiningar",
-    instructionsIntro: "Stutt yfirlit yfir hvernig matið virkar í þessari þróunarútgáfu.",
+    instructionsIntro: "Stutt yfirlit yfir hvernig matið virkar.",
     instructions: [
       "Ein spurning birtist í einu til að halda athyglinni.",
       "Framvinda sýnir hversu mörg svör eru komin inn.",
-      "Þegar búið er að svara öllum atriðum er hægt að opna niðurstöðusíðuna.",
+      "Tvær spurningar eru andhverft skoraðar (#16 og #22).",
+      "Þegar búið er að svara öllum 24 atriðum birtist heildarskor á kvarðanum 10–50.",
     ],
   },
   results: {
@@ -66,8 +67,8 @@ export const siteContent = {
     bandLabel: "Niðurstöðuflokkur",
     dimensionLabel: "Víddir",
     dimensionHint:
-      "Kúlurit sýnir hlutfall milli lágmarks og hámarks fyrir hverja vídd. Lokatúlkun verður fínstillt þegar textar eru tilbúnir.",
+      "Kúlurit sýnir hlutfall milli lágmarks og hámarks fyrir hverja vídd. Víðdaskor og heildarskor taka tillit til andhverfrar skorunar.",
     footnote:
-      "Þetta er þróunarútgáfa með staðhaldandi gögnum. Niðurstöður eru ekki klínískar ráðleggingar.",
+      "Niðurstaðan er hugsuð sem sjálfsmat og umræðugrunnur, ekki klínísk greining.",
   },
 } as const;
