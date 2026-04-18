@@ -11,22 +11,25 @@ type LikertScaleProps = {
 export function LikertScale({ value, onChange, disabled }: LikertScaleProps) {
   return (
     <div className="space-y-3">
-      <div className="grid grid-cols-5 gap-2 sm:gap-3">
+      <div className="grid grid-cols-5 gap-2 sm:gap-3" role="radiogroup" aria-label="Svarmöguleikar 1 til 5">
         {likertValues.map((option) => {
           const isActive = value === option;
           return (
             <button
               key={option}
               type="button"
+              role="radio"
+              aria-checked={isActive}
+              aria-label={`${option}: ${siteContent.assessment.likertLabels[option]}`}
               disabled={disabled}
               onClick={() => onChange(option)}
-              className={`rounded-2xl border px-2 py-3 text-center text-sm font-semibold transition-all sm:px-3 ${
+              className={`rounded-2xl border px-2 py-3 text-center text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:px-3 ${
                 isActive
-                  ? "border-accent bg-accent/15 text-foreground shadow-[0_12px_30px_rgba(177,122,82,0.18)]"
-                  : "border-border bg-surface-muted/40 text-muted hover:border-accent/40 hover:text-foreground"
+                  ? "border-accent bg-accent/20 text-foreground shadow-[0_12px_30px_rgba(177,122,82,0.24)] ring-1 ring-accent/50"
+                  : "border-border bg-surface-muted/55 text-muted hover:border-accent/55 hover:text-foreground"
               } ${disabled ? "cursor-not-allowed opacity-60" : ""}`}
             >
-              <span className="block text-lg text-foreground">{option}</span>
+              <span className="block text-lg leading-none text-foreground">{option}</span>
             </button>
           );
         })}

@@ -23,7 +23,7 @@ export function QuestionPanel({
 }: QuestionPanelProps) {
   return (
     <div
-      className={`rounded-[22px] border border-border/80 bg-surface/95 p-4 shadow-[0_18px_60px_rgba(0,0,0,0.35)] sm:p-6 ${transitionClassName}`}
+      className={`rounded-[22px] border border-border bg-surface/95 p-4 shadow-[0_18px_60px_rgba(0,0,0,0.35)] sm:p-6 ${transitionClassName}`}
     >
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3">
@@ -33,7 +33,7 @@ export function QuestionPanel({
             {question.reverseScored ? " · andhverft skorun" : ""}
           </p>
         </div>
-        <div className="inline-flex items-center rounded-full border border-border/70 bg-surface-muted/70 px-3 py-1 text-sm font-semibold text-foreground">
+        <div className="inline-flex items-center rounded-full border border-border bg-surface-muted/80 px-3 py-1 text-sm font-semibold text-foreground">
           <span>{questionNumber}</span>
           <span className="px-1 text-muted">/</span>
           <span className="text-muted">{totalQuestions}</span>

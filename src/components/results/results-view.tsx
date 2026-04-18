@@ -27,10 +27,10 @@ function DimensionMeter({
     maxPossible === minPossible ? 0 : ((sum - minPossible) / (maxPossible - minPossible)) * 100;
 
   return (
-    <div className="space-y-2 rounded-2xl border border-border/70 bg-surface-muted/40 px-4 py-3">
+    <div className="space-y-2 rounded-2xl border border-border bg-surface-muted/45 px-4 py-3">
       <div className="flex items-center justify-between gap-3">
         <p className="text-sm font-semibold text-foreground">{label}</p>
-        <p className="text-xs text-muted">
+        <p className="text-xs font-medium text-muted">
           {sum} / {maxPossible}
         </p>
       </div>
@@ -105,17 +105,17 @@ export function ResultsView() {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-[1.1fr_0.9fr]">
-          <div className="rounded-3xl border border-border/70 bg-surface-muted/50 p-5">
+          <div className="rounded-3xl border border-border bg-surface-muted/55 p-5">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
               {siteContent.results.totalScoreLabel}
             </p>
             <p className="mt-3 text-5xl font-semibold text-foreground">{snapshot.totalOnDisplayScale}</p>
-            <p className="mt-2 text-sm text-muted">
+            <p className="mt-2 text-sm font-medium text-muted">
               {siteContent.results.rawSumLabel}: {snapshot.rawSum}
             </p>
           </div>
 
-          <div className="rounded-3xl border border-accent/30 bg-accent/10 p-5">
+          <div className="rounded-3xl border border-accent/45 bg-accent/12 p-5">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
               {siteContent.results.bandLabel}
             </p>
@@ -126,7 +126,7 @@ export function ResultsView() {
 
         {band ? (
           <div className="grid gap-3 sm:grid-cols-3">
-            <div className="rounded-2xl border border-border/70 bg-surface-muted/30 p-4">
+            <div className="rounded-2xl border border-border bg-surface-muted/40 p-4">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
                 Það sem einkennir þig
               </p>
@@ -136,7 +136,7 @@ export function ResultsView() {
                 ))}
               </ul>
             </div>
-            <div className="rounded-2xl border border-border/70 bg-surface-muted/30 p-4">
+            <div className="rounded-2xl border border-border bg-surface-muted/40 p-4">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
                 Það sem er styrkur
               </p>
@@ -146,7 +146,7 @@ export function ResultsView() {
                 ))}
               </ul>
             </div>
-            <div className="rounded-2xl border border-border/70 bg-surface-muted/30 p-4">
+            <div className="rounded-2xl border border-border bg-surface-muted/40 p-4">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
                 Það sem þarf að passa
               </p>

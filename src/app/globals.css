@@ -6,13 +6,13 @@
   --surface: #12141a;
   --surface-muted: #181b22;
   --surface-subtle: #1f232c;
-  --muted: #b2b5bd;
-  --border: rgba(244, 241, 234, 0.08);
-  --border-strong: rgba(244, 241, 234, 0.16);
+  --muted: #c4c8d1;
+  --border: rgba(244, 241, 234, 0.12);
+  --border-strong: rgba(244, 241, 234, 0.24);
   --accent: #b17a52;
   --accent-strong: #8f6241;
   --accent-foreground: #0c0d10;
-  --ring: rgba(177, 122, 82, 0.35);
+  --ring: rgba(177, 122, 82, 0.5);
   --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.45);
 }
 
@@ -63,4 +63,9 @@ a {
 
 ::selection {
   background: rgba(177, 122, 82, 0.35);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }

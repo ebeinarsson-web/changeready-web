@@ -13,7 +13,7 @@ export const siteContent = {
   },
   home: {
     eyebrow: "Premium sjálfsmat",
-    title: "Breytingastíll í skýru ljósi",
+    title: "Skýr mynd af breytingastíl þínum",
     lead:
       "ChangeReady hjálpar þér að kortleggja hvernig þú tekur á breytingum — með einföldu flæði, skýrri framvindu og niðurstöðum sem eru hannaðar til að vera lesanlegar og nytsamlegar.",
     bullets: [
