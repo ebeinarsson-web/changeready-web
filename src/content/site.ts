@@ -81,6 +81,14 @@ export const siteContent = {
       errorMessage:
         "Ekki tókst að senda niðurstöður í þetta sinn. Vinsamlegast reyndu aftur.",
       invalidEmailMessage: "Vinsamlegast sláðu inn gilt netfang.",
+      privacyNotice: {
+        is: "Ef þú velur að fá niðurstöðurnar sendar í tölvupósti vinnur einarsson.io netfangið þitt og samantekt úr svörunum til að senda þér niðurstöðurnar. Ef þú sendir þær ekki eru þær ekki vistaðar miðlægt hjá okkur.",
+        en: "If you choose to receive your results by email, einarsson.io will process your email address and a summary of your responses in order to send you your results. If you do not send them, they are not stored centrally by us.",
+      },
+      privacyLinkLabel: {
+        is: "Lesa nánar um gagnavinnslu",
+        en: "Read more about data processing",
+      },
     },
     footnote:
       "Niðurstaðan er hugsuð sem sjálfsmat og umræðugrunnur, ekki klínísk greining.",

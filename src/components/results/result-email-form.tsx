@@ -1,9 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { EINARSSON_RESULTS_PRIVACY_URL } from "@/config/site";
 import { theme } from "@/lib/theme";
 import { isValidEmailAddress } from "@/lib/email/email-address";
 import type { AnswerMap } from "@/types/assessment";
+
+type LocaleCode = "is" | "en";
+type LocalizedText = Record<LocaleCode, string>;
 
 type EmailSectionContent = {
   eyebrow: string;
@@ -16,6 +20,8 @@ type EmailSectionContent = {
   successMessage: string;
   errorMessage: string;
   invalidEmailMessage: string;
+  privacyNotice: LocalizedText;
+  privacyLinkLabel: LocalizedText;
 };
 
 type ResultEmailFormProps = {
@@ -25,11 +31,22 @@ type ResultEmailFormProps = {
 
 type SubmissionState = "idle" | "success" | "error";
 
+function resolveLocale(): LocaleCode {
+  if (typeof document === "undefined") {
+    return "is";
+  }
+
+  return document.documentElement.lang.toLowerCase().startsWith("en")
+    ? "en"
+    : "is";
+}
+
 export function ResultEmailForm({ answers, content }: ResultEmailFormProps) {
   const [email, setEmail] = useState("");
   const [state, setState] = useState<SubmissionState>("idle");
   const [message, setMessage] = useState<string>();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const locale = resolveLocale();
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -103,6 +120,17 @@ export function ResultEmailForm({ answers, content }: ResultEmailFormProps) {
               className="w-full rounded-[16px] border border-border bg-surface px-4 py-3 text-base text-foreground outline-none transition-colors placeholder:text-muted focus:border-accent focus:ring-2 focus:ring-ring/40"
             />
             <p className={theme.bodySm}>{content.helper}</p>
+            <p className="text-xs leading-5 text-muted/95 sm:text-sm">
+              {content.privacyNotice[locale]}{" "}
+              <a
+                href={EINARSSON_RESULTS_PRIVACY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-accent underline decoration-accent/60 underline-offset-4 transition-colors hover:text-foreground"
+              >
+                {content.privacyLinkLabel[locale]}
+              </a>
+            </p>
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
