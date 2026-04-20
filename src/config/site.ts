@@ -3,5 +3,10 @@
  * Update here only if the primary domain changes (e.g. Vercel preview vs production).
  */
 export const CHANGEREADY_APP_URL = "https://changeready.einarsson.io" as const;
-export const EINARSSON_RESULTS_PRIVACY_URL =
-  "https://einarsson.io/privacy#results-email" as const;
+const EINARSSON_PRIVACY_URL_BASE = "https://einarsson.io/privacy" as const;
+
+export type SiteLocale = "is" | "en";
+
+export function getEinarssonResultsPrivacyUrl(locale: SiteLocale): string {
+  return `${EINARSSON_PRIVACY_URL_BASE}?lang=${locale}#results-email`;
+}

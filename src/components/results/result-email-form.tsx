@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { EINARSSON_RESULTS_PRIVACY_URL } from "@/config/site";
+import { getEinarssonResultsPrivacyUrl } from "@/config/site";
 import { theme } from "@/lib/theme";
 import { isValidEmailAddress } from "@/lib/email/email-address";
 import type { AnswerMap } from "@/types/assessment";
@@ -123,7 +123,7 @@ export function ResultEmailForm({ answers, content }: ResultEmailFormProps) {
             <p className="text-xs leading-5 text-muted/95 sm:text-sm">
               {content.privacyNotice[locale]}{" "}
               <a
-                href={EINARSSON_RESULTS_PRIVACY_URL}
+                href={getEinarssonResultsPrivacyUrl(locale)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-semibold text-accent underline decoration-accent underline-offset-4 transition-colors hover:text-foreground focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
