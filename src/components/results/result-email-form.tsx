@@ -126,7 +126,7 @@ export function ResultEmailForm({ answers, content }: ResultEmailFormProps) {
                 href={EINARSSON_RESULTS_PRIVACY_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-accent underline decoration-accent/60 underline-offset-4 transition-colors hover:text-foreground"
+                className="font-semibold text-accent underline decoration-accent underline-offset-4 transition-colors hover:text-foreground focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
               >
                 {content.privacyLinkLabel[locale]}
               </a>
